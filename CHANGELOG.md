@@ -42,3 +42,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Support for CVE and CPE datasets
 - PostgreSQL backend storage
 - Full and incremental sync modes
+
+## [1.0.1] - 2025-10-29
+- Fixed Out of memory bug

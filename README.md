@@ -371,7 +371,6 @@ This tool is provided as-is for vulnerability management and security research p
 
 - **Issues**: Report bugs or request features via [GitHub Issues](https://github.com/YOUR_USERNAME/nvd-mirror/issues)
 - **Documentation**: NVD API docs at https://nvd.nist.gov/developers
-- **Contact**: For security concerns, please email [your-email@example.com]
 
 ---
 
