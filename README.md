@@ -208,8 +208,8 @@ Edit these variables in `nvd_mirror.py` for advanced configuration:
 | Variable | Default | Description |
 |----------|---------|-------------|
 | `FORCE_FULL_SYNC` | `True` | Force complete sync (set to `False` after initial run) |
-| `RESULTS_PER_PAGE_CVE` | `2000` | CVE records per API request (max 2000) |
-| `RESULTS_PER_PAGE_CPE` | `2000` | CPE records per API request (max 2000) |
+| `RESULTS_PER_PAGE_CVE` | `500` | CVE records per API request (max 2000) |
+| `RESULTS_PER_PAGE_CPE` | `500` | CPE records per API request (max 2000) |
 | `SLEEP_TIME` | `6` | Seconds between API requests (respect rate limits) |
 | `RETENTION_DAYS` | `90` | Days to keep archived API responses |
 | `INCREMENTAL_END_DELAY_MINUTES` | `5` | Minutes before current time for incremental sync end |
@@ -242,14 +242,16 @@ CREATE TABLE cpe_records (
 
 ```sql
 -- Find all critical vulnerabilities from 2024
-SELECT cve_id, json_data->'metrics' 
-FROM cve_records 
-WHERE json_data @> '{"published": "2024"}';
+SELECT cve_id, json_data->'metrics' AS metrics
+FROM cve_records
+WHERE json_data ->> 'published' LIKE '2024%'
+LIMIT 10;
 
 -- Search for vulnerabilities affecting specific software
-SELECT cve_id, json_data 
-FROM cve_records 
-WHERE json_data::text ILIKE '%apache%';
+SELECT cve_id, json_data->'metrics' AS metrics
+FROM cve_records
+WHERE json_data::text ILIKE '%apache%'
+LIMIT 10;
 
 -- Count vulnerabilities by year
 SELECT 
